@@ -2,7 +2,7 @@ name: Deploy Vite site to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -39,6 +39,9 @@ jobs:
           VITE_TMDB_API_KEY: ${{ secrets.VITE_TMDB_API_KEY }}
           VITE_TMDB_BASE_URL: ${{ secrets.VITE_TMDB_BASE_URL }}
         run: npm run build
+
+      - name: Add 404 fallback for SPA routing
+        run: cp dist/index.html dist/404.html
 
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
